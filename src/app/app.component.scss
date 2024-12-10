@@ -1,5 +1,7 @@
 .container {
   max-width: 600px;
+  max-height: 400px;
+  overflow-y: scroll;
   margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -31,4 +33,15 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+.generated-password {
+  word-wrap: break-word;
+  max-width: 600px;
+}
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+  margin-top: 10px;
 }

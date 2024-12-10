@@ -13,16 +13,19 @@ export class AppComponent {
   passwordLength: number = 8;
   includeAlphabets: boolean = true;
   includeNumbers: boolean = false;
+  includeSpecialCharacters: boolean = false;
 
   password: string = '';
 
   generatePassword() {
     const alphabets = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numbers = '0123456789';
+    const specialChars = '!@#$%^&*()_+[]{}|;:,.<>?';
 
     let charPool = '';
     if (this.includeAlphabets) charPool += alphabets;
     if (this.includeNumbers) charPool += numbers;
+    if (this.includeSpecialCharacters) charPool += specialChars;
 
     if (!charPool) {
       this.password = 'Please select at least one option.';

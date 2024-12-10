@@ -11,7 +11,14 @@
     <input type="checkbox" [(ngModel)]="includeNumbers" />
     <label>Include Numbers</label>
   </div>
-
-  <button (click)="generatePassword()">Generate</button>
-  <div *ngIf="password">Generated Password: {{ password }}</div>
+  <div>
+    <input type="checkbox" [(ngModel)]="includeSpecialCharacters" />
+    <label>Include Special Characters</label>
+  </div>
+  <div class="result">
+    <button (click)="generatePassword()">Generate</button>
+    <div class="generated-password" *ngIf="password">
+      <b>Generated Password: </b> {{ password }}
+    </div>
+  </div>
 </div>
