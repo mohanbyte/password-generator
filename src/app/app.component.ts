@@ -11,13 +11,18 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent {
   passwordLength: number = 8;
+  includeAlphabets: boolean = true;
+  includeNumbers: boolean = false;
 
   password: string = '';
 
   generatePassword() {
     const alphabets = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
 
-    let charPool = alphabets;
+    let charPool = '';
+    if (this.includeAlphabets) charPool += alphabets;
+    if (this.includeNumbers) charPool += numbers;
 
     if (!charPool) {
       this.password = 'Please select at least one option.';

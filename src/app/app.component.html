@@ -3,6 +3,15 @@
   <label>Password Length:</label>
   <input type="number" [(ngModel)]="passwordLength" min="1" />
 
+  <div>
+    <input type="checkbox" [(ngModel)]="includeAlphabets" />
+    <label>Include Alphabets</label>
+  </div>
+  <div>
+    <input type="checkbox" [(ngModel)]="includeNumbers" />
+    <label>Include Numbers</label>
+  </div>
+
   <button (click)="generatePassword()">Generate</button>
   <div *ngIf="password">Generated Password: {{ password }}</div>
 </div>
