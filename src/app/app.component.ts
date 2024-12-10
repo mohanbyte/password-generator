@@ -1,13 +1,32 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [FormsModule, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'password-generator';
+  passwordLength: number = 8;
+
+  password: string = '';
+
+  generatePassword() {
+    const alphabets = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    let charPool = alphabets;
+
+    if (!charPool) {
+      this.password = 'Please select at least one option.';
+      return;
+    }
+
+    this.password = Array.from(
+      { length: this.passwordLength },
+      () => charPool[Math.floor(Math.random() * charPool.length)]
+    ).join('');
+  }
 }
