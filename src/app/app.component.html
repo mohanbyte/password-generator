@@ -1,24 +1,71 @@
 <div class="container">
-  <h1>Password Generator</h1>
-  <label>Password Length:</label>
-  <input type="number" [(ngModel)]="passwordLength" min="1" />
+  <h1 class="title">Password Generator</h1>
+  <form [formGroup]="passwordForm" (ngSubmit)="generatePassword()" class="form">
+    <label for="length">Password Length:</label>
+    <input
+      type="number"
+      id="length"
+      formControlName="length"
+      min="1"
+      max="128"
+      class="input"
+    />
 
-  <div>
-    <input type="checkbox" [(ngModel)]="includeAlphabets" />
-    <label>Include Alphabets</label>
-  </div>
-  <div>
-    <input type="checkbox" [(ngModel)]="includeNumbers" />
-    <label>Include Numbers</label>
-  </div>
-  <div>
-    <input type="checkbox" [(ngModel)]="includeSpecialCharacters" />
-    <label>Include Special Characters</label>
-  </div>
-  <div class="result">
-    <button (click)="generatePassword()">Generate</button>
-    <div class="generated-password" *ngIf="password">
-      <b>Generated Password: </b> {{ password }}
+    <div
+      *ngIf="
+        passwordForm.get('length')?.invalid &&
+        passwordForm.get('length')?.touched
+      "
+      class="error"
+    >
+      <p *ngIf="passwordForm.get('length')?.errors?.['required']">
+        Length is required.
+      </p>
+      <p *ngIf="passwordForm.get('length')?.errors?.['min']">
+        Minimum length is 1.
+      </p>
+      <p *ngIf="passwordForm.get('length')?.errors?.['max']">
+        Maximum length is 128.
+      </p>
+    </div>
+
+    <div class="checkbox-group">
+      <label>
+        <input type="checkbox" formControlName="includeAlphabets" /> Include
+        Alphabets
+      </label>
+      <label>
+        <input type="checkbox" formControlName="includeNumbers" /> Include
+        Numbers
+      </label>
+      <label>
+        <input type="checkbox" formControlName="includeSpecialChars" /> Include
+        Special Characters
+      </label>
+      <label>
+        <input type="checkbox" formControlName="noRepeats" /> No Repeating
+        Characters
+      </label>
+    </div>
+
+    <button type="submit" class="btn">Generate Password</button>
+  </form>
+
+  <div *ngIf="generatedPassword" class="result">
+    <h2>Generated Password:</h2>
+    <div class="password-container">
+      <p class="password">{{ generatedPassword }}</p>
+      <div class="tooltip">
+        <button
+          type="button"
+          (mouseout)="updateTooltip()"
+          (click)="copyToClipboard()"
+          class="copy"
+        >
+          Copy
+          <span class="tooltiptext" id="myTooltip">{{ tooltipText }}</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
